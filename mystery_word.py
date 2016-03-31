@@ -27,3 +27,41 @@
 #game ends when user completes word or runs out of guesses.
     #if runs out of guesses, word is revealed.
 #after game ends, prompt player if wants to play again
+
+import random
+
+potential_words_easy = []
+potential_words_medium = []
+potential_words_hard = []
+
+def player_input():
+        while True:
+            player_guess = input("Please guess a single letter: ")
+            try:
+                player_guess.isapha()
+                break
+            except:
+                print("That is not a letter! Please try again.")
+
+def guess_letter():
+
+
+def create_list(potential_words):
+# Write functions to select a subset of the complete word list.
+    with open('words.txt', 'r') as f:
+        for line in f:
+            if len(line in f) >= 4:
+                return potential_words_easy = potential_words.append(line)
+            
+
+def computer_word(potential_words):
+# Write a function to select a word at random from the word list.
+    mystery_word = random.choice(potential_words)
+    return mystery_word
+
+def display_word():
+    print(len(mystery_word)) * '_ '
+    if guess_letter() == True:
+
+
+def word_guessed():

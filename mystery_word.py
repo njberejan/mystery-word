@@ -30,6 +30,7 @@
 
 import random
 
+unusable_words = []
 potential_words_easy = []
 potential_words_medium = []
 potential_words_hard = []
@@ -39,29 +40,55 @@ def player_input():
             player_guess = input("Please guess a single letter: ")
             try:
                 player_guess.isapha()
-                break
+                return player_guess
             except:
                 print("That is not a letter! Please try again.")
 
-def guess_letter():
+# def guess_letter():
+#     if player_guess in mystery_word:
 
-
-def create_list(potential_words):
+def create_list():
 # Write functions to select a subset of the complete word list.
     with open('words.txt', 'r') as f:
         for line in f:
-            if len(line in f) >= 4:
-                return potential_words_easy = potential_words.append(line)
-            
+            if len(line in f) < 4:
+                unusable_words = unusable_words.append(line)
+            elif len(line in f) < 6:
+                potential_words_easy = potential_words_easy.append(line)
+                return potential_words_easy
+            elif len(line in f) < 8:
+                potential_words_medium = potential_words_medium.append(line)
+                return potential_words_medium
+            else:
+                potential_words_hard = potential_words_hard.append(line)
+                return potential_words_hard
 
-def computer_word(potential_words):
+
+def computer_word():
 # Write a function to select a word at random from the word list.
-    mystery_word = random.choice(potential_words)
-    return mystery_word
+    while True:
+        difficulty = input("Please select a difficulty: (e)asy, (m)edium, or (h)ard: ").upper()
+        if difficulty == 'E':
+            mystery_word = random.choice(potential_words_easy)
+        elif difficulty == 'M':
+            mystery_word = random.choice(potential_words_medium)
+        elif difficulty == 'H':
+            mystery_word = random.choice(potential_words_hard)
+        else:
+            print ("Please select e, m, or h.")
+            continue
 
-def display_word():
-    print(len(mystery_word)) * '_ '
-    if guess_letter() == True:
+# def display_word():
+#     print(len(mystery_word)) * '_ '
+#     if guess_letter() == True:
 
 
-def word_guessed():
+# def word_guessed():
+
+def main():
+
+    create_list()
+    computer_word()
+    print(computer_word)
+
+main()

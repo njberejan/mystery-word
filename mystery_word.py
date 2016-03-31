@@ -30,11 +30,6 @@
 
 import random
 
-unusable_words = []
-potential_words_easy = []
-potential_words_medium = []
-potential_words_hard = []
-
 def player_input():
         while True:
             player_guess = input("Please guess a single letter: ")
@@ -49,31 +44,35 @@ def player_input():
 
 def create_list():
 # Write functions to select a subset of the complete word list.
+    unusable_words = []
+    potential_words_easy = []
+    potential_words_medium = []
+    potential_words_hard = []
     with open('words.txt', 'r') as f:
         for line in f:
-            if len(line in f) < 4:
-                unusable_words = unusable_words.append(line)
-            elif len(line in f) < 6:
-                potential_words_easy = potential_words_easy.append(line)
-                return potential_words_easy
-            elif len(line in f) < 8:
-                potential_words_medium = potential_words_medium.append(line)
-                return potential_words_medium
+            if len(line) < 4:
+                unusable_words.append(line)
+            elif len(line) < 6:
+                potential_words_easy.append(line)
+            elif len(line) < 8:
+                potential_words_medium.append(line)
             else:
-                potential_words_hard = potential_words_hard.append(line)
-                return potential_words_hard
+                potential_words_hard.append(line)
+        return unusable_words, potential_words_easy, potential_words_medium, potential_words_hard
 
-
-def computer_word():
+def computer_word(easy, medium, hard):
 # Write a function to select a word at random from the word list.
     while True:
         difficulty = input("Please select a difficulty: (e)asy, (m)edium, or (h)ard: ").upper()
         if difficulty == 'E':
-            mystery_word = random.choice(potential_words_easy)
+            mystery_word = random.choice(easy)
+            return mystery_word
         elif difficulty == 'M':
-            mystery_word = random.choice(potential_words_medium)
+            mystery_word = random.choice(medium)
+            return mystery_word
         elif difficulty == 'H':
-            mystery_word = random.choice(potential_words_hard)
+            mystery_word = random.choice(hard)
+            return mystery_word
         else:
             print ("Please select e, m, or h.")
             continue
@@ -87,8 +86,9 @@ def computer_word():
 
 def main():
 
-    create_list()
-    computer_word()
-    print(computer_word)
+    # lists = create_list()
+    unusable, easy, medium, hard = create_list()
+    mystery_word = computer_word(easy, medium, hard)
+    print(mystery_word)
 
 main()

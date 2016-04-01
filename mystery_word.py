@@ -6,17 +6,17 @@
 # Write other helper functions as necessary to help with the flow of the game.
 # Run mystery_word_test.py and ensure you pass all the unit tests.
 
-#computer must select random word from words.txt
-    #omit words less than 4 letters (see diff modes)
-#at start, user must select difficulty
-    #easy: word has 4-6 characters
-    #normal: word has 6-8 characters
-    #hard: word has 8+ characters
-#at start, must let user know how many letters in random word
-#prompt user to guess one letter in word
-    #not case sensitive (.lower() or .upper())
-    #if user enters > 1 character, inform and redo
-#let user know if guess appears in random words
+#computer must select random word from words.txt DONE
+    #omit words less than 4 letters (see diff modes) DONE
+#at start, user must select difficulty DONE
+    #easy: word has 4-6 characters DONE
+    #normal: word has 6-8 characters DONE
+    #hard: word has 8+ characters DONE
+#at start, must let user know how many letters in random word DONE
+#prompt user to guess one letter in word DONE
+    #not case sensitive (.lower() or .upper()) DONE
+    #if user enters > 1 character, inform and redo DONE
+#let user know if guess appears in random word
 #display partially guessed word as well as letters guessed.
     #ex: bombard display as B O _ B _ _ _ D
 #user is limited to 8 guesses
@@ -30,17 +30,17 @@
 
 import random
 
-def player_input():
-        while True:
-            player_guess = input("Please guess a single letter: ")
-            try:
-                player_guess.isapha()
+def guess_letter():
+    while True:
+        player_guess = input("Please guess a letter: ").lower()
+        if player_guess.isnumeric():
+            print("That is a number.")
+            continue
+        elif len(player_guess) == 1:
                 return player_guess
-            except:
-                print("That is not a letter! Please try again.")
-
-# def guess_letter():
-#     if player_guess in mystery_word:
+        else:
+            print("Please enter only one letter.")
+            continue
 
 def create_list():
 # Write functions to select a subset of the complete word list.
@@ -77,18 +77,29 @@ def computer_word(easy, medium, hard):
             print ("Please select e, m, or h.")
             continue
 
-# def display_word():
-#     print(len(mystery_word)) * '_ '
-#     if guess_letter() == True:
+def display_word(mystery_word):
+    #another lazy solution to blank space problem
+    print((len(mystery_word) - 1) * '_ ')
 
+def is_in_word(player_guess, mystery_word):
+    if player_guess in mystery_word:
+        print("You guessed a letter!")
 
-# def word_guessed():
+def reveal_letter(is_in_word()):
+    #LEAVNG OFF HERE 10PM. CAN FUNCTION BE ARGUMENT FOR ANOTHER FUNCTION?
+
 
 def main():
 
-    # lists = create_list()
     unusable, easy, medium, hard = create_list()
-    mystery_word = computer_word(easy, medium, hard)
+    mystery_word = computer_word(easy, medium, hard).lower()
     print(mystery_word)
+    #line below is lazy, technically fixes problem.
+    #was returning .format consistenly one too long. must be blank space on line from text file.
+    print("The mystery word is {} letters long.".format(len(mystery_word) - 1))
+    blank_word = display_word(mystery_word)
+    player_guess = guess_letter()
+    is_in_word(player_guess, mystery_word)
+
 
 main()

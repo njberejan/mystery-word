@@ -99,7 +99,7 @@ def reveal_letter(player_guess, blanked_word, mystery_word):
                 mystery_word = mystery_word.replace(player_guess, "_",1)
                 blanked_word = blanked_word[:index]+player_guess+blanked_word[index+1:]
                 print(blanked_word)
-                # old_guess = old_guess[:index]+player_guess+old_guess[index+1:]
+                return blanked_word
             else:
                 break
         # if player_guess in mystery_word:
@@ -125,12 +125,15 @@ def main():
     blanked_word = display_word(mystery_word)
     # print(mystery_word) PRINT DEBUG, ENSURES PROGRAM STORING ORIGINAL mystery_word
     # print(blanked_word) AS WELL AS NEWLY CREATED blanked_word
-    player_guess = guess_letter()
-    if is_in_word(player_guess, mystery_word):
-        reveal_letter(player_guess, blanked_word, mystery_word)
-        print("You guessed a letter!")
-    else:
-        print("That letter is not in the mystery word!")
+    while True:
+        player_guess = guess_letter()
+        if is_in_word(player_guess, mystery_word):
+            blanked_word = reveal_letter(player_guess, blanked_word, mystery_word)
+            print("You guessed a letter!")
+            continue
+        else:
+            print("That letter is not in the mystery word!")
+            continue
 
 
 main()

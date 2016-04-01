@@ -51,11 +51,11 @@ def create_list():
     potential_words_hard = []
     with open('words.txt', 'r') as f:
         for line in f:
-            if len(line) < 4:
+            if len(line.strip()) <= 3:
                 unusable_words.append(line)
-            elif len(line) < 6:
+            elif len(line.strip()) < 6:
                 potential_words_easy.append(line)
-            elif len(line) < 8:
+            elif len(line.strip()) < 8:
                 potential_words_medium.append(line)
             else:
                 potential_words_hard.append(line)
@@ -89,7 +89,7 @@ def display_word(mystery_word):
 
 def is_in_word(player_guess, mystery_word):
     if player_guess in mystery_word:
-        return True
+        return player_guess
 
 def reveal_letter(player_guess, blanked_word, mystery_word):
     if is_in_word(player_guess, mystery_word):

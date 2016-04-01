@@ -94,8 +94,10 @@ def is_in_word(player_guess, mystery_word):
 def reveal_letter(player_guess, blanked_word, mystery_word):
     if is_in_word(player_guess, mystery_word):
             for i in mystery_word:
-                blanked_word.replace(mystery_word[i], player_guess)
-#         return blank_word.replace
+                replaced_letter = mystery_word[mystery_word.index(player_guess)]
+                blanked_word = blanked_word.replace(replaced_letter, player_guess)
+            print(blanked_word)
+#LEAVING OFF HERE FOR TIME BEING 2:11 FRIDAY
 
 
 

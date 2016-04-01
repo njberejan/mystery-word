@@ -93,13 +93,26 @@ def is_in_word(player_guess, mystery_word):
 
 def reveal_letter(player_guess, blanked_word, mystery_word):
     if is_in_word(player_guess, mystery_word):
-            for i in mystery_word:
-                replaced_letter = mystery_word[mystery_word.index(player_guess)]
-                blanked_word = blanked_word.replace(replaced_letter, player_guess)
-            print(blanked_word)
+        while True:
+            if player_guess in mystery_word:
+                index = mystery_word.find(player_guess)
+                mystery_word = mystery_word.replace(player_guess, "_",1)
+                blanked_word = blanked_word[:index]+player_guess+blanked_word[index+1:]
+                print(blanked_word)
+                # old_guess = old_guess[:index]+player_guess+old_guess[index+1:]
+            else:
+                break
+        # if player_guess in mystery_word:
+        #     replaced_letter = mystery_word[mystery_word.index(player_guess)]
+        #     blanked_word = blanked_word.replace(replaced_letter, player_guess)
+        # print(replaced_letter)
+        # print(blanked_word)
+        # print(mystery_word)
 #LEAVING OFF HERE FOR TIME BEING 2:11 FRIDAY
 
-
+# mystery_word_list = list(mystery_word)
+# if player_guess in mystery_word_list:
+#     mystery_word = blanked_word.replace()
 
 def main():
 
@@ -114,8 +127,8 @@ def main():
     # print(blanked_word) AS WELL AS NEWLY CREATED blanked_word
     player_guess = guess_letter()
     if is_in_word(player_guess, mystery_word):
-        print("You guessed a letter!")
         reveal_letter(player_guess, blanked_word, mystery_word)
+        print("You guessed a letter!")
     else:
         print("That letter is not in the mystery word!")
 

@@ -91,16 +91,42 @@ def is_in_word(player_guess, mystery_word):
     if player_guess in mystery_word:
         return player_guess
 
-def reveal_letter(player_guess, blanked_word, mystery_word):
-    if is_in_word(player_guess, mystery_word):
-            for i in mystery_word:
-                replaced_letter = mystery_word[mystery_word.index(player_guess)]
-                blanked_word = blanked_word.replace(replaced_letter, player_guess)
-            print(blanked_word)
-            print(mystery_word)
+# def find_all(mystery_word, player_guess):
+#     return [i for i, letter in enumerate(mystery_word) if letter == player_guess]
+
+# def reveal_letter(player_guess, blanked_word, mystery_word):
+#     if is_in_word(player_guess, mystery_word):
+#         while True:
+#             if player_guess in mystery_word:
+#                 index = mystery_word.find(player_guess)
+#                 mystery_word = mystery_word.replace(player_guess, "_")
+#                 blanked_word = blanked_word[:index] + player_guess + blanked_word[index + 1:]
+#                 print(blanked_word)
+#                 return blanked_word
+#                 continue
+#             else:
+#                 break
+        # if player_guess in mystery_word:
+        #     replaced_letter = mystery_word[mystery_word.index(player_guess)]
+        #     blanked_word = blanked_word.replace(replaced_letter, player_guess)
+        # print(replaced_letter)
+        # print(blanked_word)
+        # print(mystery_word)
 #LEAVING OFF HERE FOR TIME BEING 2:11 FRIDAY
 
+def reveal_letter(player_guess, mystery_word):
+    output = ['_ '] * len(mystery_word)
+    for i,x in list(mystery_word):
+        if x is player_guess:
+            output[i] = player_guess
 
+
+def print_output(x, output):
+    print(''.join([str(x)+" " for x in output]))
+
+# mystery_word_list = list(mystery_word)
+# if player_guess in mystery_word_list:
+#     mystery_word = blanked_word.replace()
 
 def main():
 
@@ -110,15 +136,23 @@ def main():
     print("the length of the str is: " , len(mystery_word))
     print("The mystery word is {} letters long.".format(len(mystery_word.strip())))
     print(display_word(mystery_word))
-    blanked_word = display_word(mystery_word)
+    # blanked_word = display_word(mystery_word)
     # print(mystery_word) PRINT DEBUG, ENSURES PROGRAM STORING ORIGINAL mystery_word
     # print(blanked_word) AS WELL AS NEWLY CREATED blanked_word
-    player_guess = guess_letter()
-    if is_in_word(player_guess, mystery_word):
-        print("You guessed a letter!")
-        reveal_letter(player_guess, blanked_word, mystery_word)
-    else:
-        print("That letter is not in the mystery word!")
+    while True:
+        player_guess = guess_letter()
+        reveal_letter(player_guess, mystery_word)
+        print_output(output)
+        # print_output(output)
+        # if "_" not in blanked_word:
+        #     print("You completed the word!")
+        # elif is_in_word(player_guess, mystery_word):
+        #     blanked_word = reveal_letter(player_guess, blanked_word, mystery_word)
+        #     print("You guessed a letter!")
+        #     continue
+        # else:
+        #     print("That letter is not in the mystery word!")
+        #     continue
 
 
 main()

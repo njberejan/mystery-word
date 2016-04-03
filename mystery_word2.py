@@ -63,13 +63,14 @@ def reveal_letter(player_guess, mystery_word, blank_list):
 
     #commented out attempt to resolve multiple letter issue
     #code from stack overflow, returns error about i being undefined
-    # mys_list = list(mystery_word)
-    # for index, item in enumerate(mys_list):
+
+    # blank_list = list(blank_string)
+    # for index, item in enumerate(mystery_word):
     #     if player_guess == item:
-    #         blank_list[i] = player_guess
-    #         word_update = ''.join(blank_list)
+    #         blank_list[index] = player_guess
+    #         blank_string = ''.join(blank_list)
     #
-    #         return word_update, blank_list
+    # return blank_list, blank_string
 
 def completely_guessed(blank_list):
     if '_' not in blank_list:

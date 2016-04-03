@@ -1,33 +1,3 @@
-# Requirements
-# Write functions to select a subset of the complete word list. DONE
-# Write a function to select a word at random from the word list. DONE
-# Write a function to display a word with blanks/letters filled in the appropriate spots. KIND OF DONE
-# Write a function to check if a word has been completely guessed. DONE
-# Write other helper functions as necessary to help with the flow of the game. DONE
-# Run mystery_word_test.py and ensure you pass all the unit tests.
-
-#computer must select random word from words.txt DONE
-    #omit words less than 4 letters (see diff modes) DONE
-#at start, user must select difficulty DONE
-    #easy: word has 4-6 characters DONE
-    #normal: word has 6-8 characters DONE
-    #hard: word has 8+ characters DONE
-#at start, must let user know how many letters in random word DONE
-#prompt user to guess one letter in word DONE
-    #not case sensitive (.lower() or .upper()) DONE
-    #if user enters > 1 character, inform and redo DONE
-#let user know if guess appears in random word DONE
-#display partially guessed word as well as letters guessed. KIND OF DONE
-    #ex: bombard display as B O _ B _ _ _ D DONE
-#user is limited to 8 guesses DONE
-    #remind user of how many guesses remain after each input DONE
-#user only loses a guess if incorrect, not for correct guess DONE
-#if user guesses same letter twice, inform user and have guess again
-    #do not subtract a guess though!
-#game ends when user completes word or runs out of guesses.
-    #if runs out of guesses, word is revealed.
-#after game ends, prompt player if wants to play again
-
 import random
 
 def guess_letter():
@@ -38,7 +8,7 @@ def guess_letter():
             print("That is a number.")
             continue
         elif len(player_guess) == 1:
-                return player_guess
+            return player_guess
         else:
             print("Please enter only one letter.")
             continue
@@ -78,102 +48,77 @@ def computer_word(easy, medium, hard):
             print ("Please select e, m, or h.")
             continue
 
-def display_word(mystery_word):
-    # - 1 is another lazy solution to blank space problem
-    #instead of printing len(mystery_word) try mystery_word.replace('', '_ ')
-    for i in range(0, len(mystery_word)):
-        # if ord(mystery_word[i]) != 32:
-        mystery_word = mystery_word.replace(mystery_word[i:], '_ ')
-        continue
-    return mystery_word
-
 def is_in_word(player_guess, mystery_word):
     if player_guess in mystery_word:
         return player_guess
 
-# def find_all(mystery_word, player_guess):
-#     return [i for i, letter in enumerate(mystery_word) if letter == player_guess]
+def reveal_letter(player_guess, mystery_word, blank_string):
+#this code was implemented via stackoverflow. Will need some clarification why this works.
+    blank_list = list(blank_string)
+    for index, item in enumerate(mystery_word):
+        if player_guess == item:
+            blank_list[index] = player_guess
 
-# def reveal_letter(player_guess, blanked_word, mystery_word):
-#     if is_in_word(player_guess, mystery_word):
-#         while True:
-#             if player_guess in mystery_word:
-#                 index = mystery_word.find(player_guess)
-#                 mystery_word = mystery_word.replace(player_guess, "_")
-#                 blanked_word = blanked_word[:index] + player_guess + blanked_word[index + 1:]
-#                 print(blanked_word)
-#                 return blanked_word
-#                 continue
-#             else:
-#                 break
-        # if player_guess in mystery_word:
-        #     replaced_letter = mystery_word[mystery_word.index(player_guess)]
-        #     blanked_word = blanked_word.replace(replaced_letter, player_guess)
-        # print(replaced_letter)
-        # print(blanked_word)
-        # print(mystery_word)
-#LEAVING OFF HERE FOR TIME BEING 2:11 FRIDAY
+    return blank_list
 
-def reveal_letter(player_guess, mystery_word):
-    mys_list = list(mystery_word)
-    word_guessed = []
-    for letter in mystery_word:
-        word_guessed.append("_ ")
+def completely_guessed(blank_list):
+    if '_' not in blank_list:
+        return True
 
-
-def print_output(x, output):
-    print(''.join([str(x)+" " for x in output]))
-
-# mystery_word_list = list(mystery_word)
-# if player_guess in mystery_word_list:
-#     mystery_word = blanked_word.replace()
-
-def main():
-
+def game():
+    guess_number = 8
+    player_guesses = []
     unusable, easy, medium, hard = create_list()
+    #generates lists to pull from
     mystery_word = computer_word(easy, medium, hard).lower().strip()
+    #generates mystery_word from above lists
     print(mystery_word)
+    #print debug
     print("the length of the str is: " , len(mystery_word))
+    #print debug
     print("The mystery word is {} letters long.".format(len(mystery_word.strip())))
-    print(display_word(mystery_word))
-    # blanked_word = display_word(mystery_word)
-    # print(mystery_word) PRINT DEBUG, ENSURES PROGRAM STORING ORIGINAL mystery_word
-    # print(blanked_word) AS WELL AS NEWLY CREATED blanked_word
+    blank_list = list(len(mystery_word) * '_')
+    #generates initial blank list
+
     while True:
         player_guess = guess_letter()
-        reveal_letter(player_guess, mystery_word)
-        print_output(output)
-        # print_output(output)
-        # if "_" not in blanked_word:
-        #     print("You completed the word!")
-        # elif is_in_word(player_guess, mystery_word):
-        #     blanked_word = reveal_letter(player_guess, blanked_word, mystery_word)
-        #     print("You guessed a letter!")
-        #     continue
-        # else:
-        #     print("That letter is not in the mystery word!")
-        #     continue
+        #player is prompted, enters letter
+        blank_list = reveal_letter(player_guess, mystery_word, blank_list)
+        #reveal letter function runs, returns string concatenated from blank list w/ added letter
+        print(" ".join(blank_list))
+        #prints the string with the added letter
+        if completely_guessed(blank_list):
+        #determines if game is over
+            print("You guessed the word!")
+            break
+        elif guess_number < 1:
+            print("You have failed to guess the word. You lose. The mystery word was: {}.".format(mystery_word))
+            break
+        elif player_guess in player_guesses:
+            print("You have already guessed that number!")
+            continue
+        elif is_in_word(player_guess, mystery_word):
+        #determines if letter guessed was in word, returns true and prints below.
+            player_guesses.append(player_guess)
+            print("You guessed a letter! Guesses remaining: {}".format(str(guess_number)))
+            continue
+        else:
+        #guessed letter is not in word, is_in_word returns False.
+            guess_number -= 1
+            print("That letter is not in the mystery word! Guesses remaining: {}".format(str(guess_number)))
+            continue
 
+def main():
+    game()
+    while True:
+        play_again = input("Would you like to play again? Y/n: ")
+        if play_again.lower() == 'y':
+            game()
+        elif play_again.lower() == 'n':
+            break
+        else:
+            print("Please enter 'y' or 'n'.")
+            continue
 
-main()
-
-#regular expression for string character replacement?
-
-#loop for dictionary:
-    # for word in words:
-    #     if word in word_count:
-    #         word_count[word] += 1
-    #     else:
-    #         word_count[word] = 1
-#may need to put individual letters in string in a dictionary to determine frequency
-#of letter in word?
-
-#more explicitly:
-# d={}
-# with open('new_file.txt', 'r') as words:
-#         for words in words:
-#                 cleaned=word.strip().lower()
-#                 if cleaned not in d:
-#                         d[cleaned] = 1
-#                     else:
-#                         d[cleaned] += 1
+if __name__ == '__main__':
+    main()

@@ -1,9 +1,9 @@
 # Requirements
 # Write functions to select a subset of the complete word list. DONE
 # Write a function to select a word at random from the word list. DONE
-# Write a function to display a word with blanks/letters filled in the appropriate spots.
-# Write a function to check if a word has been completely guessed.
-# Write other helper functions as necessary to help with the flow of the game.
+# Write a function to display a word with blanks/letters filled in the appropriate spots. KIND OF DONE
+# Write a function to check if a word has been completely guessed. DONE
+# Write other helper functions as necessary to help with the flow of the game. DONE
 # Run mystery_word_test.py and ensure you pass all the unit tests.
 
 #computer must select random word from words.txt DONE
@@ -16,12 +16,12 @@
 #prompt user to guess one letter in word DONE
     #not case sensitive (.lower() or .upper()) DONE
     #if user enters > 1 character, inform and redo DONE
-#let user know if guess appears in random word
-#display partially guessed word as well as letters guessed.
-    #ex: bombard display as B O _ B _ _ _ D
-#user is limited to 8 guesses
-    #remind user of how many guesses remain after each input
-#user only loses a guess if incorrect, not for correct guess
+#let user know if guess appears in random word DONE
+#display partially guessed word as well as letters guessed. KIND OF DONE
+    #ex: bombard display as B O _ B _ _ _ D DONE
+#user is limited to 8 guesses DONE
+    #remind user of how many guesses remain after each input DONE
+#user only loses a guess if incorrect, not for correct guess DONE
 #if user guesses same letter twice, inform user and have guess again
     #do not subtract a guess though!
 #game ends when user completes word or runs out of guesses.

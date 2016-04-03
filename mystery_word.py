@@ -72,10 +72,10 @@ def game():
     #generates lists to pull from
     mystery_word = computer_word(easy, medium, hard).lower().strip()
     #generates mystery_word from above lists
-    print(mystery_word)
-    #print debug
-    print("the length of the str is: " , len(mystery_word))
-    #print debug
+    # print(mystery_word)
+    # #print debug
+    # print("the length of the str is: " , len(mystery_word))
+    # #print debug
     print("The mystery word is {} letters long.".format(len(mystery_word.strip())))
     blank_list = list(len(mystery_word) * '_')
     #generates initial blank list

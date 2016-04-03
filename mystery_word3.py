@@ -65,8 +65,9 @@ def completely_guessed(blank_list):
     if '_' not in blank_list:
         return True
 
-def main():
+def game():
     guess_number = 8
+    player_guesses = []
     unusable, easy, medium, hard = create_list()
     #generates lists to pull from
     mystery_word = computer_word(easy, medium, hard).lower().strip()
@@ -91,10 +92,14 @@ def main():
             print("You guessed the word!")
             break
         elif guess_number < 1:
-            print("You have failed to guess the word. You lose.")
+            print("You have failed to guess the word. You lose. The mystery word was: {}.".format(mystery_word))
             break
+        elif player_guess in player_guesses:
+            print("You have already guessed that number!")
+            continue
         elif is_in_word(player_guess, mystery_word):
         #determines if letter guessed was in word, returns true and prints below.
+            player_guesses.append(player_guess)
             print("You guessed a letter! Guesses remaining: {}".format(str(guess_number)))
             continue
         else:
@@ -103,5 +108,13 @@ def main():
             print("That letter is not in the mystery word! Guesses remaining: {}".format(str(guess_number)))
             continue
 
+def main():
+    game()
+    while True:
+        play_again = input("Would you like to play again? Y/n: ")
+        if play_again.lower() == 'y':
+            game()
+        else:
+            break
 
 main()

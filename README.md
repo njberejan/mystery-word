@@ -1,0 +1,1 @@
+Hi! Welcome to the ReadMe file for the Mystery Word homework assignment. The program runs and meets most of the basic requirements. I will edit this file before pushing my final code to reflect whether or not I’ve finally figured out how to display multiple of the same letter in a word.
